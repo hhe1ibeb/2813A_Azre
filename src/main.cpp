@@ -1,19 +1,24 @@
 #include "main.h"
 
+int auton = 2; // 1 => defensive, 2 => offensive
+
 /**
  * A callback function for LLEMU's center button.
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+
 void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
+	pros::lcd::set_background_color(LV_COLOR_GREEN);
+}
+
+void on_left_button(){
+	pros::lcd::set_background_color(LV_COLOR_BLUE);
+}
+
+void on_right_button(){
+	pros::lcd::set_background_color(LV_COLOR_RED);
 }
 
 /**
@@ -38,7 +43,15 @@ void screen() {
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
     chassis.calibrate(); // calibrate the chassis
-	chassis.setPose(-35, -59, -90);
+    if(auton == 1){
+	    chassis.setPose(-35, -59, 90);
+    }
+    if(auton == 2){
+	    chassis.setPose(13, -59, 270);
+    }
+    pros::lcd::register_btn1_cb(on_center_button);
+	pros::lcd::register_btn0_cb(on_left_button);
+	pros::lcd::register_btn2_cb(on_right_button);
     pros::Task screenTask(screen); // create a task to print the position to the screen
 }
 

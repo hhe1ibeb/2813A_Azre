@@ -10,12 +10,14 @@ const int INTAKE = 2;
 const int CATAPULT_LEFT = 4;
 const int CATAPULT_RIGHT = 10;
 
-const char WINGS = 'F';
+const char WINGS = 'H';
 
 const int CATAPULT_ROTATION = 9;
+const int CATAPULT_DETECT = 8;
 
 const int GYRO = 7;
 
+// chassis motors
 extern pros::Motor left_front_motor;
 extern pros::Motor left_back_motor;
 extern pros::Motor right_front_motor;
@@ -26,12 +28,15 @@ extern pros::MotorGroup right_side_motors;
 
 extern lemlib::Drivetrain_t drivetrain;
 
+// components
 extern okapi::Motor intake;
 extern okapi::MotorGroup catapult;
 
 extern pros::ADIDigitalOut wing;
 
+// catapult sensors
 extern pros::Rotation cata_rotation;
+extern pros::Distance cata_detect;
 
 // inertial sensor
 extern pros::Imu inertial_sensor;

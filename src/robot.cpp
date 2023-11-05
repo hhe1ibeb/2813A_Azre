@@ -14,6 +14,7 @@ okapi::MotorGroup catapult({-CATAPULT_LEFT, CATAPULT_RIGHT});
 
 pros::ADIDigitalOut wing(WINGS);
 pros::Rotation cata_rotation(CATAPULT_ROTATION);
+pros::Distance cata_detect(CATAPULT_DETECT);
 
 lemlib::Drivetrain_t drivetrain {
     &left_side_motors, // left drivetrain motors
@@ -21,7 +22,7 @@ lemlib::Drivetrain_t drivetrain {
     10, // track width
     3.25, // wheel diameter
     360, // wheel rpm
-    4, // chase power. 2-4 if no traction wheels, 8+ otherwise
+    2, // chase power. 2-4 if no traction wheels, 8+ otherwise
 };
 // inertial sensor
 pros::Imu inertial_sensor(GYRO);
@@ -37,8 +38,8 @@ lemlib::OdomSensors_t sensors {
 
 // forward/backward PID
 lemlib::ChassisController_t lateralController {
-    10, // kP
-    30, // kD
+    60, // kP
+    50, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -48,7 +49,7 @@ lemlib::ChassisController_t lateralController {
  
 // turning PID
 lemlib::ChassisController_t angularController {
-    4, // kP
+    5, // kP
     40, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout

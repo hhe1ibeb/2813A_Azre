@@ -9,10 +9,13 @@ pros::Motor right_back_motor(RIGHT_BACK_MOTOR_PORT, pros::E_MOTOR_GEARSET_06, fa
 pros::MotorGroup left_side_motors({left_front_motor, left_back_motor});
 pros::MotorGroup right_side_motors({right_front_motor, right_back_motor});
 
-okapi::Motor intake(INTAKE);
-okapi::MotorGroup catapult({-CATAPULT_LEFT, CATAPULT_RIGHT});
+pros::Motor intake(INTAKE);
+pros::Motor catapult_left(-CATAPULT_LEFT);
+pros::Motor catapult_right(CATAPULT_RIGHT);
+pros::MotorGroup catapult({catapult_left, catapult_right});
 
 pros::ADIDigitalOut wing(WINGS);
+pros::ADIDigitalOut blocker(BLOCKER);
 pros::Rotation cata_rotation(CATAPULT_ROTATION);
 pros::Distance cata_detect(CATAPULT_DETECT);
 

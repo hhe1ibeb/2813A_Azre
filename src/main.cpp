@@ -1,7 +1,5 @@
 #include "main.h"
 
-int auton = 2; // 1 => defensive, 2 => offensive
-
 /**
  * A callback function for LLEMU's center button.
  *
@@ -41,18 +39,14 @@ void screen() {
 }
  
 void initialize() {
-    pros::lcd::initialize(); // initialize brain screen
+    selector::init();
     chassis.calibrate(); // calibrate the chassis
-    if(auton == 1){
+    if(selector::auton == 1 || selector::auton == -1){
 	    chassis.setPose(-35, -59, 90);
     }
-    if(auton == 2){
-	    chassis.setPose(13, -59, 270);
+    if(selector::auton == 2 || selector::auton == -2){
+	    chassis.setPose(53, -56, 45);
     }
-    pros::lcd::register_btn1_cb(on_center_button);
-	pros::lcd::register_btn0_cb(on_left_button);
-	pros::lcd::register_btn2_cb(on_right_button);
-    pros::Task screenTask(screen); // create a task to print the position to the screen
 }
 
 /**

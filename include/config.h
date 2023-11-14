@@ -2,7 +2,7 @@
 #include "main.h"
 
 const int LEFT_FRONT_MOTOR_PORT =19;
-const int LEFT_BACK_MOTOR_PORT = 20;
+const int LEFT_BACK_MOTOR_PORT = 18;
 const int RIGHT_FRONT_MOTOR_PORT = 11;
 const int RIGHT_BACK_MOTOR_PORT = 12;
 
@@ -11,6 +11,7 @@ const int CATAPULT_LEFT = 4;
 const int CATAPULT_RIGHT = 10;
 
 const char WINGS = 'H';
+const char BLOCKER = 'F';
 
 const int CATAPULT_ROTATION = 9;
 const int CATAPULT_DETECT = 8;
@@ -29,10 +30,11 @@ extern pros::MotorGroup right_side_motors;
 extern lemlib::Drivetrain_t drivetrain;
 
 // components
-extern okapi::Motor intake;
-extern okapi::MotorGroup catapult;
+extern pros::Motor intake;
+extern pros::MotorGroup catapult;
 
 extern pros::ADIDigitalOut wing;
+extern pros::ADIDigitalOut blocker;
 
 // catapult sensors
 extern pros::Rotation cata_rotation;

@@ -2,12 +2,18 @@
 using namespace okapi::literals;
 
 void cata_once(){
-    catapult.moveVelocity(200);
+    catapult.move_velocity(200);
     pros::delay(500);
     while(cata_rotation.get_angle() > 21000){
-        catapult.moveVelocity(200);
+        catapult.move_velocity(200);
     }
-    catapult.moveVelocity(0);
+    catapult.move_velocity(0);
+}
+
+void celebrate(){
+    right_side_motors.move_velocity(500);
+    left_side_motors.move_velocity(-500);
+    catapult.move_velocity(200);
 }
 
 void opcontrol(){
@@ -19,7 +25,9 @@ void opcontrol(){
     bool catapult_looping = 0;
     bool catapult_maxed = 0;
     bool catapult_detecting = 0;
-    catapult.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+    bool blocking = 0;
+    bool celebrating = 0;
+    catapult.set_brake_modes(pros::motor_brake_mode_e_t::E_MOTOR_BRAKE_HOLD);
 
     wing.set_value(0);
 
@@ -34,18 +42,18 @@ void opcontrol(){
         right_side_motors.move(leftY - rightX);
 
 		if (master.get_digital(DIGITAL_R1)) {
-			intake.moveVelocity(600);
+			intake.move_velocity(600);
 		} else if (master.get_digital(DIGITAL_R2)) {
-			intake.moveVelocity(-600);
+			intake.move_velocity(-600);
 		} else {
-			intake.moveVelocity(0);
+			intake.move_velocity(0);
 		}
 
         if(master.get_digital(DIGITAL_A)){
             cata_once();
         }
 
-        if(master.get_digital(DIGITAL_Y)){
+        if(master.get_digital_new_press(DIGITAL_Y)){
             catapult_detecting = !catapult_detecting;
         }
 
@@ -60,9 +68,9 @@ void opcontrol(){
         }
         if(!catapult_looping && catapult_maxed){
             if(cata_rotation.get_angle() < 27000){
-                catapult.moveVelocity(-200);
+                catapult.move_velocity(-200);
             } else{
-                catapult.moveVelocity(0);
+                catapult.move_velocity(0);
             }
         }
 
@@ -70,24 +78,48 @@ void opcontrol(){
             catapult_looping = !catapult_looping;
         }
         if(catapult_looping){
-            catapult.moveVelocity(200);
+            catapult.move_velocity(200);
         } else{
             if(cata_rotation.get_angle() > 21000){
-                catapult.moveVelocity(200);
+                catapult.move_velocity(200);
             } else{
-                catapult.moveVelocity(0);
+                catapult.move_velocity(0);
             }
         }
 
-		if(master.get_digital(DIGITAL_L1)){
-			wings_out = 1;
-		}
-        if(master.get_digital(DIGITAL_L2)){
-            wings_out = 0;
+        if(master.get_digital_new_press(DIGITAL_UP) && master.get_digital_new_press(DIGITAL_DOWN)){
+            celebrating = !celebrating;
         }
+        if(celebrating){
+            celebrate();
+        }
+
+        if(master.get_digital_new_press(DIGITAL_L2)){
+            wings_out = !wings_out;
+        }
+
+        if(master.get_digital_new_press(DIGITAL_L1)){
+            blocking = !blocking;
+        }
+
+		// if(master.get_digital(DIGITAL_L1)){
+		// 	wings_out = 0;
+		// }
+        // if(master.get_digital(DIGITAL_L2)){
+        //     wings_out = 1;
+        // }
+
+        // if(master.get_digital(DIGITAL_LEFT)){
+        //     blocking = 0;
+        // }
+        // if(master.get_digital(DIGITAL_RIGHT)){
+        //     blocking = 1;
+        // }
 
         std::string text = "Auto Detecting: " + std::string(catapult_detecting ? "On " : "Off");
         master.set_text(0, 0, text.c_str());
+        wing.set_value(wings_out);
+        blocker.set_value(blocking);
         pros::delay(10);
 	}
 }

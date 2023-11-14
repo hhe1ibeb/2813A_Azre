@@ -78,6 +78,7 @@ void opcontrol(void);
 //#include <iostream>
 #include "lemlib/api.hpp"
 #include "config.h"
+#include "autoSelect/selection.h"
 #endif
 
 #endif  // _PROS_MAIN_H_

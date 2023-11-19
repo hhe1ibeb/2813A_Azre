@@ -40,12 +40,23 @@ void screen() {
  
 void initialize() {
     selector::init();
+    // pros::lcd::initialize();
+    // pros::Task screen_task(screen);
     chassis.calibrate(); // calibrate the chassis
-    if(selector::auton == 1 || selector::auton == -1){
+    if(selector::auton == 1){
 	    chassis.setPose(-35, -59, 90);
     }
-    if(selector::auton == 2 || selector::auton == -2){
+    if(selector::auton == -1){
+        chassis.setPose(-40, -59, 0);
+    }
+    if(selector::auton == 2){
 	    chassis.setPose(53, -56, 45);
+    }
+    if(selector::auton == -2){
+        chassis.setPose(12, -58, -90);
+    }
+    if(selector::auton == 0){
+        chassis.setPose(-47, -57, 135);
     }
 }
 

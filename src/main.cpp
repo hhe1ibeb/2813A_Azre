@@ -1,42 +1,11 @@
 #include "main.h"
 
 /**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
-
-void on_center_button() {
-	pros::lcd::set_background_color(LV_COLOR_GREEN);
-}
-
-void on_left_button(){
-	pros::lcd::set_background_color(LV_COLOR_BLUE);
-}
-
-void on_right_button(){
-	pros::lcd::set_background_color(LV_COLOR_RED);
-}
-
-/**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-
-
-void screen() {
-    // loop forever
-    while (true) {
-        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
-        pros::lcd::print(0, "x: %f", pose.x); // print the x position
-        pros::lcd::print(1, "y: %f", pose.y); // print the y position
-        pros::lcd::print(2, "heading: %f", pose.theta); // print the heading
-        pros::delay(10);
-    }
-}
  
 void initialize() {
     selector::init();

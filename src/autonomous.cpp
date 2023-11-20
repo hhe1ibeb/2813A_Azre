@@ -32,37 +32,31 @@ void defensive_qua(){
 
 void defensive_elim(){
     blocker.set_value(1);
-    wing.set_value(1);
+    pros::delay(1000);
+    // wing.set_value(1);
     chassis.moveTo(-23, -14, 0, 5000, true, true);
     chassis.waitUntilDist(10);
-    wing.set_value(0);
+    // wing.set_value(0);
     chassis.waitUntilDist(15);
     intake.move_velocity(200);
     chassis.waitUntilDist(1000);
-    wing.set_value(1);
+    // wing.set_value(1);
     chassis.moveTo(-12, -12, 135, 2000, false, true);
     intake.move_velocity(0);
     chassis.moveTo(-18, -27, 180, 3000, false, true);
     chassis.follow(elim_defpath1_txt, 5000, 15, true, true);
     chassis.waitUntilDist(20);
-    wing.set_value(0);
+    // wing.set_value(0);
     chassis.waitUntilDist(1000);
     chassis.moveTo(-10, -59, 90, 2000, false, true);
     intake.move_velocity(-200);
     pros::delay(1000);
     intake.move_velocity(0);
-    // chassis.moveTo(-39, -45, 180, 3000, false, true);
-    // chassis.moveTo(-47, -56, 135, 4000, false, true);
-    // chassis.moveTo(-10, -59, 90, 3000, true, true);
-    // chassis.waitUntilDist(10);
-    // wing.set_value(0);
-    // intake.move_velocity(-200);
-    // chassis.waitUntilDist(1000);
-    // blocker.set_value(0);
 }
 
 void offensive_qua(){
     blocker.set_value(1);
+    pros::delay(1000);
     chassis.follow(offpath1_txt, 2000, 15, true, true);
     wing.set_value(1);
     chassis.waitUntilDist(5);
@@ -110,6 +104,7 @@ void offensive_elim(){
     chassis.waitUntilDist(15);
     intake.move_velocity(200);
     chassis.waitUntilDist(1000);
+    // wing.set_value(1);
     chassis.moveTo(45, 0, 90, 3000, true, true);
     chassis.waitUntilDist(10);
     intake.move_velocity(-200);

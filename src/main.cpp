@@ -19,7 +19,7 @@ void initialize() {
         chassis.setPose(-40, -59, 0);
     }
     if(selector::auton == 2){
-	    chassis.setPose(53, -56, 45);
+	    chassis.setPose(55, -52, 45);
     }
     if(selector::auton == -2){
         chassis.setPose(12, -58, -90);

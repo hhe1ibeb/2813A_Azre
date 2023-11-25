@@ -19,11 +19,11 @@ pros::ADIDigitalOut blocker(BLOCKER);
 pros::Rotation cata_rotation(CATAPULT_ROTATION);
 pros::Distance cata_detect(CATAPULT_DETECT);
 
-lemlib::Drivetrain_t drivetrain {
+lemlib::Drivetrain drivetrain {
     &left_side_motors, // left drivetrain motors
     &right_side_motors, // right drivetrain motors
     10, // track width
-    3.25, // wheel diameter
+    lemlib::Omniwheel::NEW_325, // wheel diameter
     360, // wheel rpm
     2, // chase power. 2-4 if no traction wheels, 8+ otherwise
 };
@@ -31,7 +31,7 @@ lemlib::Drivetrain_t drivetrain {
 pros::Imu inertial_sensor(GYRO);
  
 // odometry struct
-lemlib::OdomSensors_t sensors {
+lemlib::OdomSensors sensors {
     nullptr, // vertical tracking wheel 1
     nullptr, // vertical tracking wheel 2
     nullptr, // horizontal tracking wheel 1
@@ -40,7 +40,7 @@ lemlib::OdomSensors_t sensors {
 };
 
 // forward/backward PID
-lemlib::ChassisController_t lateralController {
+lemlib::ControllerSettings lateralController {
     60, // kP
     50, // kD
     1, // smallErrorRange
@@ -51,7 +51,7 @@ lemlib::ChassisController_t lateralController {
 };
  
 // turning PID
-lemlib::ChassisController_t angularController {
+lemlib::ControllerSettings angularController {
     5, // kP
     40, // kD
     1, // smallErrorRange

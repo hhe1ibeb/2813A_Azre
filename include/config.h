@@ -27,7 +27,7 @@ extern pros::Motor right_back_motor;
 extern pros::MotorGroup left_side_motors;
 extern pros::MotorGroup right_side_motors;
 
-extern lemlib::Drivetrain_t drivetrain;
+extern lemlib::Drivetrain drivetrain;
 
 // components
 extern pros::Motor intake;
@@ -44,12 +44,12 @@ extern pros::Distance cata_detect;
 extern pros::Imu inertial_sensor;
  
 // odometry struct
-extern lemlib::OdomSensors_t sensors;
+extern lemlib::OdomSensors sensors;
 
 // forward/backward PID
-extern lemlib::ChassisController_t lateralController;
+extern lemlib::ControllerSettings lateralController;
  
 // turning PID
-extern lemlib::ChassisController_t angularController;
+extern lemlib::ControllerSettings angularController;
 
 extern lemlib::Chassis chassis;

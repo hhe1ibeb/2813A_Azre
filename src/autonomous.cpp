@@ -58,10 +58,11 @@ void defensive_elim(){
 
 void offensive_qua(){
     blocker.set_value(1);
+    // pros::delay(500);
     chassis.follow(offpath1_txt, 15, 2000, true);
-    wing.set_value(1);
-    chassis.waitUntil(5);
-    wing.set_value(0);
+    // wing.set_value(1);
+    // chassis.waitUntil(5);
+    // wing.set_value(0);
     intake.move_velocity(-200);
     chassis.waitUntilDone();
     intake.move_velocity(0);
@@ -69,13 +70,22 @@ void offensive_qua(){
     chassis.follow(offpath2_txt, 15, 3000, true);
     intake.move_velocity(200);
     chassis.waitUntilDone();
+
+    // chassis.follow(offpath3_txt, 15, 2000, true);
     wing.set_value(1);
-    chassis.follow(offpath3_txt, 15, 2000, true);
-    intake.move_velocity(-200);
+    chassis.moveTo(43, -5, 90, 3000, true);
+    // chassis.waitUntil(5);
+    // wing.set_value(1);
+    // chassis.waitUntil(10);
+    // intake.move_velocity(-200);
     chassis.waitUntilDone();
+    intake.move_velocity(-200);
+    pros::delay(1000);
+    intake.move_velocity(0);
 
     chassis.follow(offpath4_txt, 15, 3000, true);
     chassis.waitUntilDone();
+    wing.set_value(1);
 }
 
 void offensive_elim(){

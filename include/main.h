@@ -77,7 +77,6 @@ void opcontrol(void);
  */
 //#include <iostream>
 #include "lemlib/api.hpp"
-#include "config.h"
 #include "autoSelect/selection.h"
 #endif
 

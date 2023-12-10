@@ -1,4 +1,5 @@
 #include "main.h"
+#include "config.h"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -6,23 +7,15 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
- 
+
 void initialize() {
     selector::init();
-    // pros::lcd::initialize();
-    // pros::Task screen_task(screen);
     chassis.calibrate(); // calibrate the chassis
-    if(selector::auton == 1){
-	    chassis.setPose(-35, -59, 90);
+    if(selector::auton == 1 || selector::auton == -1){
+	    chassis.setPose(-34, -59, 90);
     }
-    if(selector::auton == -1){
-        chassis.setPose(-40, -59, 0);
-    }
-    if(selector::auton == 2){
-	    chassis.setPose(55, -52, 45);
-    }
-    if(selector::auton == -2){
-        chassis.setPose(12, -58, -90);
+    if(selector::auton == 2 || selector::auton == -2){
+	    chassis.setPose(35, -59, 0);
     }
     if(selector::auton == 0){
         chassis.setPose(-47, -57, 135);

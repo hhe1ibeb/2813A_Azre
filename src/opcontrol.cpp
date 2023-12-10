@@ -1,5 +1,5 @@
 #include "main.h"
-using namespace okapi::literals;
+#include "config.h"
 
 void cata_once(){
     catapult.move_velocity(200);
@@ -17,7 +17,7 @@ void celebrate(){
 }
 
 void opcontrol(){
-    pros::Controller master(CONTROLLER_MASTER);
+    pros::Controller master(pros::E_CONTROLLER_MASTER);
     cata_rotation.reset();
     cata_rotation.reset_position();
 
@@ -101,20 +101,6 @@ void opcontrol(){
         if(master.get_digital_new_press(DIGITAL_L1)){
             blocking = !blocking;
         }
-
-		// if(master.get_digital(DIGITAL_L1)){
-		// 	wings_out = 0;
-		// }
-        // if(master.get_digital(DIGITAL_L2)){
-        //     wings_out = 1;
-        // }
-
-        // if(master.get_digital(DIGITAL_LEFT)){
-        //     blocking = 0;
-        // }
-        // if(master.get_digital(DIGITAL_RIGHT)){
-        //     blocking = 1;
-        // }
 
         std::string text = "Auto Detecting: " + std::string(catapult_detecting ? "On " : "Off");
         master.set_text(0, 0, text.c_str());

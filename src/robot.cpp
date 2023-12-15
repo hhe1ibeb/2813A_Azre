@@ -1,39 +1,41 @@
 #include "main.h"
 
-const int LEFT_FRONT_MOTOR_PORT = 8;
-const int LEFT_BACK_MOTOR_PORT = 5;
-const int RIGHT_FRONT_MOTOR_PORT = 2;
-const int RIGHT_BACK_MOTOR_PORT = 3;
+const int L1 = 14;
+const int L2 = 15;
+const int L3 = 16;
+const int R1 = 17;
+const int R2 = 18;
+const int R3 = 19;
 
-const int INTAKE = 9;
-const int CATAPULT_LEFT = 7;
-const int CATAPULT_RIGHT = 6;
+const int FLYWHEEL = 20;
 
-const char WINGS = 'H';
-const char BLOCKER = 'F';
+const int INTAKE = 11;
 
-const int CATAPULT_ROTATION = 10;
-const int CATAPULT_DETECT = 4;
+const char LEFT_WING = 'D';
+const char RIGHT_WING = 'C';
+const char BLOCKER = 'A';
+const char SIDE_HANG = 'B';
 
-const int GYRO = 1;
+const int GYRO = 4;
 
-pros::Motor left_front_motor(LEFT_FRONT_MOTOR_PORT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor left_back_motor(LEFT_BACK_MOTOR_PORT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor right_front_motor(RIGHT_FRONT_MOTOR_PORT, pros::E_MOTOR_GEARSET_06, false);
-pros::Motor right_back_motor(RIGHT_BACK_MOTOR_PORT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor left1_motor(L1, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor left2_motor(L2, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor left3_motor(L3, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor right1_motor(R1, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor right2_motor(R2, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor right3_motor(R3, pros::E_MOTOR_GEARSET_06, false);
 
-pros::MotorGroup left_side_motors({left_front_motor, left_back_motor});
-pros::MotorGroup right_side_motors({right_front_motor, right_back_motor});
+
+pros::MotorGroup left_side_motors({left1_motor, left2_motor, left3_motor});
+pros::MotorGroup right_side_motors({right1_motor, right2_motor, right3_motor});
 
 pros::Motor intake(INTAKE);
-pros::Motor catapult_left(CATAPULT_LEFT);
-pros::Motor catapult_right(-CATAPULT_RIGHT);
-pros::MotorGroup catapult({catapult_left, catapult_right});
+pros::Motor flywheel(FLYWHEEL, pros::E_MOTOR_GEARSET_06, true);
 
-pros::ADIDigitalOut wing(WINGS);
+pros::ADIDigitalOut left_wing(LEFT_WING);
+pros::ADIDigitalOut right_wing(RIGHT_WING);
 pros::ADIDigitalOut blocker(BLOCKER);
-pros::Rotation cata_rotation(CATAPULT_ROTATION);
-pros::Distance cata_detect(CATAPULT_DETECT);
+pros::ADIDigitalOut side_hang(SIDE_HANG);
 
 lemlib::Drivetrain drivetrain(&left_side_motors, // left motor group
                               &right_side_motors, // right motor group

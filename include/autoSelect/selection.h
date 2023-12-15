@@ -4,7 +4,7 @@
 
 //selector configuration
 #define HUE 360
-#define DEFAULT 3
+#define DEFAULT 0
 #define AUTONS "Near", "Far", "Do Nothing"
 
 namespace selector{

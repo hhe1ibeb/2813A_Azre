@@ -12,13 +12,13 @@ void initialize() {
     selector::init();
     chassis.calibrate(); // calibrate the chassis
     if(selector::auton == 1 || selector::auton == -1){
-	    chassis.setPose(-34, -59, 90);
+	    chassis.setPose(-46, -56, 135);
     }
     if(selector::auton == 2 || selector::auton == -2){
-	    chassis.setPose(35, -59, 0);
+	    chassis.setPose(35, -59, 180);
     }
     if(selector::auton == 0){
-        chassis.setPose(-47, -57, 135);
+        chassis.setPose(-51, -54, 135);
     }
 }
 

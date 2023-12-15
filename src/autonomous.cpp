@@ -1,10 +1,12 @@
 #include "main.h"
 #include "config.h"
 
+#define WING_ON() { left_wing.set_value(1); right_wing.set_value(1); }
+#define WING_OFF() { left_wing.set_value(0); right_wing.set_value(0); }
+
 ASSET(defpath1_txt);
 ASSET(defpath2_txt);
 
-ASSET(elim_defpath1_txt);
 ASSET(elim_defpath2_txt);
 
 ASSET(offpath1_txt);
@@ -14,31 +16,33 @@ ASSET(offpath4_txt);
 ASSET(offpath5_txt);
 
 ASSET(elim_offpath5_txt);
-ASSET(elim_offpath1_txt);
-ASSET(elim_offpath2_txt);
+ASSET(elim_offpath6_txt);
+ASSET(elim_offpath7_txt);
 
-ASSET(skill1_txt);
-ASSET(skill2_txt);
-
-extern void cata_once();
+ASSET(skills1_txt);
+ASSET(skills2_txt);
+ASSET(skills3_txt);
+ASSET(skills4_txt);
+ASSET(skills5_txt);
 
 void defensive_qua(){
     blocker.set_value(1);
     chassis.follow(defpath1_txt, 15, 3000, false);
     chassis.waitUntilDone();
 
-    chassis.follow(defpath2_txt, 15, 6000, true);
-    chassis.waitUntil(15);
-    wing.set_value(1);
-    chassis.waitUntil(25);
-    wing.set_value(0);
+    chassis.turnTo(-57, 0, 1000, true);
     chassis.waitUntilDone();
-    blocker.set_value(0);
+
+    chassis.follow(defpath2_txt, 15, 6000, false);
+    chassis.waitUntil(10);
+    WING_ON();
+    chassis.waitUntil(20);
+    WING_OFF();
+    chassis.waitUntilDone();
 }
 
 void defensive_elim(){
-    blocker.set_value(1);
-    chassis.follow(elim_defpath1_txt, 15, 3000, false);
+    chassis.follow(defpath1_txt, 15, 3000, false);
     chassis.waitUntilDone();
     
     chassis.follow(elim_defpath2_txt, 15, 8000, true);
@@ -49,73 +53,98 @@ void defensive_elim(){
 
 void offensive_qua(){
     blocker.set_value(1);
-    chassis.follow(offpath1_txt, 15, 3000, true);
-    chassis.waitUntil(20);
-    intake.move_velocity(-200);
+    chassis.follow(offpath1_txt, 15, 3000, false);
     chassis.waitUntilDone();
-    chassis.follow(offpath2_txt, 15, 4000, true);
-    intake.move_velocity(200);
-    chassis.waitUntil(20);
-    intake.move_velocity(-200);
-    wing.set_value(1);
-    chassis.waitUntilDone();
-    wing.set_value(0);
-    chassis.follow(offpath3_txt, 15, 4000, true);
+    chassis.follow(offpath2_txt, 15, 3000, true);
     intake.move_velocity(200);
     chassis.waitUntilDone();
-    chassis.follow(offpath4_txt, 15, 3000, true);
+    intake.move_velocity(-50);
+    pros::delay(500);
+    chassis.moveTo(5, 0, 315, 1000, true);
+    intake.move_velocity(200);
+    chassis.waitUntilDone();
+    pros::delay(500);
+    chassis.moveTo(50, -5, 270, 3000, false, 2, 0.6, 127);
+    chassis.waitUntil(10);
+    WING_ON();
+    chassis.waitUntilDone();
+    WING_OFF();
+    chassis.moveTo(30, -5, 270, 1000, true);
+    chassis.turnTo(50, -5, 1000, true);
+    chassis.waitUntilDone();
+    chassis.moveTo(50, -5, 90, 1000, true);
     intake.move_velocity(-200);
     chassis.waitUntilDone();
     intake.move_velocity(0);
-    chassis.follow(offpath5_txt, 15, 3000, true);
+    chassis.follow(offpath5_txt, 15, 3000, false);
     chassis.waitUntilDone();
-    wing.set_value(1);
+    WING_ON();
 }
 
 void offensive_elim(){
     blocker.set_value(1);
-    chassis.follow(offpath1_txt, 15, 3000, true);
-    chassis.waitUntil(20);
-    intake.move_velocity(-200);
+    chassis.follow(offpath1_txt, 15, 3000, false);
     chassis.waitUntilDone();
-    chassis.follow(offpath2_txt, 15, 4000, true);
-    intake.move_velocity(200);
-    chassis.waitUntil(20);
-    intake.move_velocity(-200);
-    wing.set_value(1);
-    chassis.waitUntilDone();
-    wing.set_value(0);
-    chassis.follow(offpath3_txt, 15, 4000, true);
+    chassis.follow(offpath2_txt, 15, 3000, true);
     intake.move_velocity(200);
     chassis.waitUntilDone();
-    chassis.follow(offpath4_txt, 15, 3000, true);
+    intake.move_velocity(-200);
+    pros::delay(500);
+    chassis.moveTo(5, 0, 315, 1000, true);
+    intake.move_velocity(200);
+    chassis.waitUntilDone();
+    pros::delay(500);
+    chassis.moveTo(50, -5, 270, 3000, false);
+    chassis.waitUntil(10);
+    WING_ON();
+    chassis.waitUntilDone();
+    WING_OFF();
+    chassis.moveTo(30, -5, 270, 1000, true);
+    chassis.turnTo(50, -5, 1000, true);
+    chassis.waitUntilDone();
+    chassis.moveTo(50, -5, 90, 1000, true);
     intake.move_velocity(-200);
     chassis.waitUntilDone();
+    intake.move_velocity(0);
     chassis.follow(elim_offpath5_txt, 15, 3000, true);
     intake.move_velocity(200);
     chassis.waitUntilDone();
-    chassis.follow(elim_offpath1_txt, 15, 2000, false);
+    chassis.follow(elim_offpath6_txt, 15, 3000, false);
+    chassis.waitUntil(50);
+    WING_ON();
+    chassis.waitUntil(55);
+    WING_OFF();
     chassis.waitUntilDone();
-    chassis.follow(elim_offpath2_txt, 15, 3000, true);
-    chassis.waitUntil(5);
-    wing.set_value(1);
+    chassis.follow(elim_offpath7_txt, 15, 200, true);
     intake.move_velocity(-200);
     chassis.waitUntilDone();
+    intake.move_velocity(0);
 }
 
 void progskills(){
     blocker.set_value(1);
-    chassis.follow(skill1_txt, 15, 3000, true, false);
+    chassis.follow(skills1_txt, 15, 2000, false);
+    chassis.waitUntil(10);
     blocker.set_value(0);
-    for(int i = 0; i < 44; i++){
-        cata_once();
-    }
-    chassis.follow(skill2_txt, 15, 20000, true);
+    chassis.waitUntilDone();
+    chassis.moveTo(-50, -50, 45, 2000, true);
+    flywheel.move_velocity(600);
+    right_wing.set_value(1);
+    pros::delay(30000);
+    right_wing.set_value(0);
+    flywheel.move_velocity(0);
+    chassis.follow(skills2_txt, 15, 10000, false);
+    chassis.waitUntil(120);
+    WING_ON();
+    chassis.waitUntilDone();
+    chassis.follow(skills3_txt, 15, 3000, true);
+    chassis.waitUntilDone();
+    chassis.follow(skills4_txt, 15, 5000, false);
+    chassis.waitUntilDone();
+    chassis.follow(skills5_txt, 15, 10000, true);
+    chassis.waitUntil(25);
+    WING_OFF();
     intake.move_velocity(-200);
-    chassis.waitUntil(50);
-    wing.set_value(1);
-    chassis.waitUntil(40);
-    wing.set_value(0);
     chassis.waitUntilDone();
 }
 

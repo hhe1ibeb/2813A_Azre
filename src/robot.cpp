@@ -4,7 +4,7 @@ const int L1 = 14;
 const int L2 = 15;
 const int L3 = 16;
 const int R1 = 17;
-const int R2 = 18;
+const int R2 = 13;
 const int R3 = 19;
 
 const int FLYWHEEL = 20;
